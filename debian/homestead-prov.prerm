@@ -57,6 +57,10 @@ case "$1" in
         # Stop monitoring ourselves
         for f in $HOMESTEAD_DIR/*.monit; do rm -f /etc/monit/conf.d/`basename $f`; done
         service monit restart
+
+        rm -f /etc/icinga/objects/cw_homestead_prov_icinga.cfg
+        service icinga reload
+
         # Make sure we're stopped - do this before env is removed,
         # or init.d script won't work
         service homestead-prov stop

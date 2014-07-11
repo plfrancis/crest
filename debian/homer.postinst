@@ -75,6 +75,10 @@ case "$1" in
         # Start monit monitoring ourselves
         cp $HOMER_DIR/*.monit /etc/monit/conf.d/
         service monit restart
+
+        /usr/share/clearwater/icinga/make_cw_homer_icinga.cfg.sh > /etc/icinga/objects/cw_homer_icinga.cfg
+        service icinga reload
+
         # Restart homer.  Always do this by terminating homer so monit will
         # restart it more-or-less immediately.  (monit restart seems to have
         # significant lag.)

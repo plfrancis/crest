@@ -57,6 +57,10 @@ case "$1" in
         # Stop monitoring ourselves
         for f in $HOMER_DIR/*.monit; do rm -f /etc/monit/conf.d/`basename $f`; done
         service monit restart
+
+        rm -f /etc/icinga/objects/cw_homer_icinga.cfg
+        service icinga reload
+
         # Make sure we're stopped - do this before env is removed,
         # or init.d script won't work
         service homer stop
